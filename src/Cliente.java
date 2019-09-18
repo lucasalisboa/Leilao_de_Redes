@@ -8,10 +8,14 @@ public class Cliente {
     public double somatorio_servicos;
     public List<Double> pesos;
 
-    public Cliente(){
+    public Cliente(List<Servico> provedor){
         lances_globais = new ArrayList<>();
         servicos_requisitados = new ArrayList<>();
         pesos = new ArrayList<>();
+        lances(provedor.size());
+        servicos(provedor);
+        somatorio();
+        novoPeso();
     }
 
     public void lances(int n){
@@ -22,6 +26,23 @@ public class Cliente {
             lances_globais.add(aux,sc.nextDouble());
             aux++;
         }
+    }
+
+    public void servicos(List<Servico> provedor){
+        int aux = 0;
+        while(aux < provedor.size()){
+            System.out.println("Por favor, entre com a requisicao para o servico " + aux);
+            Scanner sc = new Scanner(System.in);
+            double a = sc.nextDouble();
+            if(a <= provedor.get(aux).capacidade){
+                lances_globais.add(aux,a);
+            }
+            else{
+                lances_globais.add(aux, (double) 0);
+            }
+            aux++;
+        }
+
     }
 
     public void somatorio(){
